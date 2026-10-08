@@ -11,7 +11,6 @@ from SolixBLE.devices.solarbank2 import (
     GridStatus,
     LightMode,
     MaxLoadSB2,
-    SBPowerCutoff,
     SBUsageMode,
 )
 
@@ -368,8 +367,9 @@ MOCK_SOLAR_BANK_2_TEST_DATA = {
     "pv_yield": 1053.2,
     "charged_energy": ("battery_input_energy", 124.3),
     "output_energy": ("total_output_energy", 12.7),
-    "output_cutoff_data": ("output_cutoff_threshold", SBPowerCutoff.P5, "5%"),
-    "input_cutoff_data": ("input_cutoff_threshold", SBPowerCutoff.P10, "10%"),
+    "min_soc": ("minimum_soc", 5),
+    "max_soc": ("maximum_soc", 90),
+    "active_charge_soc": ("active_charge_soc_limit", 100),
     "battery_discharge_power": 12.4,
     "grid_to_home_power": 12.5,
     "pv_to_grid_power": 1245.1,

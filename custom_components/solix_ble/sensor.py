@@ -25,11 +25,11 @@ from SolixBLE import (
     Solarbank2,
     SolixBLEDevice,
 )
+from SolixBLE.const import DEFAULT_METADATA_INT
 
 from .const import (
     CHARGING_STATUS_C300_STRINGS,
     CHARGING_STATUS_F3800_STRINGS,
-    CUT_OFF_SB2_STRINGS,
     GRID_STATUS_STRINGS,
     LIGHT_STATUS_SB2_STRINGS,
     LIGHT_STATUS_STRINGS,
@@ -180,30 +180,32 @@ async def async_setup_entry(
             )
         )
 
-    # Output cutoff thresholds
+    # Battery SOC limits
     if type(device) in [Solarbank2]:
         sensors.append(
             SolixSensorEntity(
                 device,
-                "Output cutoff threshold",
-                None,
-                "output_cutoff_data",
-                SensorDeviceClass.ENUM,
-                CUT_OFF_SB2_STRINGS,
+                "Minimum SOC",
+                "%",
+                "min_soc",
                 state_class=None,
             )
         )
-
-    # Input cutoff thresholds
-    if type(device) in [Solarbank2]:
         sensors.append(
             SolixSensorEntity(
                 device,
-                "Input cutoff threshold",
-                None,
-                "input_cutoff_data",
-                SensorDeviceClass.ENUM,
-                CUT_OFF_SB2_STRINGS,
+                "Maximum SOC",
+                "%",
+                "max_soc",
+                state_class=None,
+            )
+        )
+        sensors.append(
+            SolixSensorEntity(
+                device,
+                "Active charge SOC limit",
+                "%",
+                "active_charge_soc",
                 state_class=None,
             )
         )
@@ -1121,6 +1123,13 @@ class SolixSensorEntity(SensorEntity):
         # If none pass through
         if attribute_value is None:
             self._attr_native_value = attribute_value
+
+        # Firmware predating the SOC-limit settings does not report max SOC
+        elif (
+            self._attribute_name == "max_soc"
+            and attribute_value == DEFAULT_METADATA_INT
+        ):
+            self._attr_native_value = None
 
         # If timestamp add timezone info
         elif self._attr_device_class is SensorDeviceClass.TIMESTAMP:

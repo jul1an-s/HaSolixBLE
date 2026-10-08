@@ -104,6 +104,13 @@ from . import (
             id="solar_bank_2",
         ),
         pytest.param(
+            MOCK_SOLAR_BANK_2_DETAILS,
+            MOCK_SOLAR_BANK_2_DETAILS,
+            "Solarbank2",
+            {"max_soc": ("maximum_soc", -1, "unknown")},
+            id="solar_bank_2_no_max_soc",
+        ),
+        pytest.param(
             MOCK_UNKNOWN_DETAILS,
             MOCK_UNKNOWN_DETAILS,
             "Generic",

@@ -73,13 +73,6 @@ USAGE_MODE_SB2_STRINGS = [
 ]
 
 
-##################
-# Battery cutoff #
-##################
-
-CUT_OFF_SB2_STRINGS = ["Unknown", "5%", "10%"]
-
-
 ####################
 # Supported models #
 ####################
