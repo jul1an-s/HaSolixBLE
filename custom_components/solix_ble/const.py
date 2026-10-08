@@ -1,6 +1,9 @@
 """Constants for the SolixBLE integration."""
 
+import re
 from enum import Enum
+
+from SolixBLE.devices.solarbank2 import ErrorCodeSB2
 
 DOMAIN = "solix_ble"
 
@@ -71,6 +74,33 @@ USAGE_MODE_SB2_STRINGS = [
     "Smart",
     "Time slot",
 ]
+
+
+###############
+# Error codes #
+###############
+
+# Generated rather than hand-written because the ENUM renderer picks the
+# string by the members position in the enum
+
+def _error_label(member: ErrorCodeSB2) -> str:
+    """Build a display string from an error code enum member name."""
+    if member is ErrorCodeSB2.UNKNOWN:
+        return "Unknown"
+    if member is ErrorCodeSB2.NONE:
+        return "No error"
+    if m := re.fullmatch(r"(.+)_PORT_(\d)", member.name):
+        text, suffix = m[1], f"port {m[2]}"
+    elif m := re.fullmatch(r"(.+)_(\d+)", member.name):
+        text, suffix = m[1], m[2]
+    else:
+        text, suffix = member.name, None
+    text = text.replace("_", " ").capitalize()
+    text = text.replace("Pv ", "PV ").replace("Off grid", "Off-grid")
+    return f"{text} ({suffix})" if suffix else text
+
+
+ERROR_CODE_SB2_STRINGS = [_error_label(m) for m in ErrorCodeSB2]
 
 
 ####################

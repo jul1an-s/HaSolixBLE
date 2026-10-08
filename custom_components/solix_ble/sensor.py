@@ -30,6 +30,7 @@ from SolixBLE.const import DEFAULT_METADATA_INT
 from .const import (
     CHARGING_STATUS_C300_STRINGS,
     CHARGING_STATUS_F3800_STRINGS,
+    ERROR_CODE_SB2_STRINGS,
     GRID_STATUS_STRINGS,
     LIGHT_STATUS_SB2_STRINGS,
     LIGHT_STATUS_STRINGS,
@@ -776,6 +777,20 @@ async def async_setup_entry(
                 "Error code",
                 None,
                 "error_code",
+                state_class=None,
+            )
+        )
+
+    # Error status (named)
+    if type(device) in [Solarbank2]:
+        sensors.append(
+            SolixSensorEntity(
+                device,
+                "Error",
+                None,
+                "error",
+                SensorDeviceClass.ENUM,
+                ERROR_CODE_SB2_STRINGS,
                 state_class=None,
             )
         )

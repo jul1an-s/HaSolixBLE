@@ -10,6 +10,7 @@ from SolixBLE import LightStatus, PortStatus
 from SolixBLE.devices.solarbank2 import (
     GridStatus,
     LightMode,
+    ErrorCodeSB2,
     MaxLoadSB2,
     SBUsageMode,
 )
@@ -386,6 +387,7 @@ MOCK_SOLAR_BANK_2_TEST_DATA = {
     "solar_pv_4_power_in": ("solar_power_in_port_4", 13.4),
     "power_out": ("total_power_out", 14.745),
     "error_code": 0,
+    "error": ("error", ErrorCodeSB2.NONE, "No error"),
     "light_mode": ("status_light", LightMode.NORMAL, "Normal"),
     "grid_status": ("grid_status", GridStatus.OK, "Ok"),
 }
