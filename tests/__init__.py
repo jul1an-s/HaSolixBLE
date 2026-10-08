@@ -388,7 +388,6 @@ MOCK_SOLAR_BANK_2_TEST_DATA = {
     "error_code": 0,
     "light_mode": ("status_light", LightMode.NORMAL, "Normal"),
     "grid_status": ("grid_status", GridStatus.OK, "Ok"),
-    "battery_heating": True,
 }
 
 MOCK_UNKNOWN_TEST_DATA = {}

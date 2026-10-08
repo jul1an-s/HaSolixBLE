@@ -1067,18 +1067,6 @@ async def async_setup_entry(
             )
         )
 
-    # Heater status
-    if type(device) in [Solarbank2]:
-        sensors.append(
-            SolixSensorEntity(
-                device,
-                "Battery Heating",
-                None,
-                "battery_heating",
-                None,
-            )
-        )
-
     async_add_entities(sensors)
 
 
